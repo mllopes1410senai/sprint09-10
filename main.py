@@ -8,7 +8,7 @@ app.config['SECRET_KEY'] = 'Meu-salario'
 
 #conectar o banco:
 host = 'localhost'
-database = r'C:\Users\Aluno\Desktop\projetoMS\BANCO.FDB'
+database = r'C:\Users\Cliente\Desktop\bancosprint\projetoMS\BANCO.FDB'
 user = 'sysdba'
 password = 'sysdba'
 
@@ -197,7 +197,7 @@ def editar_usuario():
 
         cursor.close()
 
-        return render_template('editar_usuario.html', usuario=usuario)
+        return render_template('editar_usuario.html', usuario=usuario, nome = usuario[1])
 
 @app.route('/editar', methods=['GET', 'POST'])
 def editar():
@@ -276,7 +276,8 @@ def editar_senha():
         flash('Precisa estar logado')
         return redirect(url_for('login'))
     else:
-        return render_template('editar_senha.html')
+        nome = buscarUsuario(id)[1]
+        return render_template('editar_senha.html', nome = nome)
 
 
 @app.route('/senha', methods=['GET', 'POST'])
@@ -291,6 +292,9 @@ def senha():
         try:
             id = session['id_usuario']
             usuario = buscarUsuario(id)
+            print("ID:", id)
+            print("USUARIO:", usuario)
+            print("TIPO:", type(usuario))
 
             if request.method == 'POST':
                 senha_atual = request.form['senha_atual']
@@ -317,8 +321,10 @@ def senha():
             flash(f"Ocorreu um erro! -> {e}")
 
         finally:
-            return render_template('editar_senha.html', usuario=usuario)
+            cursor.close()
 
+        nome = usuario[1]
+        return render_template('editar_senha.html', usuario=usuario, nome=nome)
 
 if __name__ == '__main__':
     app.run(debug=True)
