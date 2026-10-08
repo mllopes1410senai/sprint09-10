@@ -19,7 +19,7 @@
 
         <div class="icone_e_nome">
             <div class="icone_user"></div>
-            <div class="nome_user">Olá, {{ nome }}</div>
+            <a href="{{ url_for('editar_usuario') }}"><p class="nome_user">Olá, {{nome}}</p></a>
             <a href="{{ url_for('logout') }}" class="logout"><img src="static/img/logout.png" alt="Símbolo da logo"></a>
         </div>
     </div>
