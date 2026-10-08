@@ -23,16 +23,16 @@
             <a href="{{ url_for('logout') }}" class="logout"><img src="static/img/logout.png" alt="Símbolo da logo"></a>
         </div>
     </div>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="flash-messages">
-            {%for category, message in messages %}
-            <div class="flash {{category}}">{{message}}</div>
-            {%endfor%}
-        </div>
-        {%endif%}
-    {%endwith%}
     <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            <div class="flash-messages">
+                {%for category, message in messages %}
+                <div class="flash {{category}}">{{message}}</div>
+                {%endfor%}
+            </div>
+            {%endif%}
+        {%endwith%}
         <div class="icone_user_grande"><img src="/static/img/user.png" alt="Foto de usuário"></div>
 
         <form action="editar" method="post">
